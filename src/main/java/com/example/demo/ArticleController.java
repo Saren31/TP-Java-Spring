@@ -29,7 +29,7 @@ public class ArticleController {
 	  }
 	 
 	 @GetMapping(path="/all")
-	  public @ResponseBody Iterable<Article> getUsers() {
+	  public @ResponseBody Iterable<Article> getArticles() {
 	    // This returns a JSON or XML with the users
 	    return articleRepository.findAll();
 	  }
