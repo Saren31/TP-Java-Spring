@@ -2,8 +2,10 @@ package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,12 +20,12 @@ public class ArticleController {
 	 @PostMapping(path="/add") // Map ONLY POST Requests
 	  public @ResponseBody String addArticle (@RequestParam String contenu, 
 		    @RequestParam String date
-	      , @RequestParam Integer user) {
+	      , @RequestParam Integer auteurId) {
 
 	    Article n = new Article();
 	    n.setDatePublication(date);
-	    n.setIdAuteur(user);
 	    n.setContenu(contenu);
+	    n.setIdAuteur(auteurId);
 	    articleRepository.save(n);
 	    return "Saved";
 	  }
@@ -33,5 +35,27 @@ public class ArticleController {
 	    // This returns a JSON or XML with the users
 	    return articleRepository.findAll();
 	  }
+	 
+	 @PutMapping(path="/put")
+	 public @ResponseBody String changeArticle(@RequestParam Integer articleId
+			 , @RequestParam String contenu, 
+			    @RequestParam String date
+			      , @RequestParam Integer auteurId ) {
+		 
+		 Article a = articleRepository.findById(articleId)
+				 .orElseThrow(()->new IllegalArgumentException("Il n'y a pas d'article avec cet id"));
+		 a.setDatePublication(date);
+		 a.setContenu(contenu);
+		 a.setIdAuteur(auteurId);
+		 
+		 articleRepository.save(a);
+		 return "Saved";
+	 }
+	 
+	 @DeleteMapping(path="/delete")
+	 public @ResponseBody String deleteArticle(@RequestParam Integer id) {
+		 articleRepository.deleteById(id);
+		 return "Delete";
+	 }
 	
 }
