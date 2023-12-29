@@ -1,9 +1,16 @@
 package com.example.demo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Article {
@@ -12,9 +19,13 @@ public class Article {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
-	private Integer idAuteur;
+	@ManyToOne
+    @JoinColumn(name = "user_id")
+	private Utilisateur user;
 			
 	private String datePublication;
+	
+	private String titre;
 	
 	private String contenu;
 
@@ -42,12 +53,20 @@ public class Article {
 		this.contenu = contenu;
 	}
 
-	public Integer getIdAuteur() {
-		return idAuteur;
+	public Utilisateur getUser() {
+		return user;
 	}
 
-	public void setIdAuteur(Integer idAuteur) {
-		this.idAuteur = idAuteur;
+	public void setUser(Utilisateur auteur) {
+		this.user = auteur;
+	}
+
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
 	}
 
 	
