@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Article {
 
@@ -23,12 +26,16 @@ public class Article {
     @JoinColumn(name = "user_id")
 	private Utilisateur user;
 			
-	private String datePublication;
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private LocalDate datePublication;
 	
 	private String titre;
 	
 	private String contenu;
 
+	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Liker> likes = new ArrayList<>();
+	
 	public Integer getId() {
 		return id;
 	}
@@ -37,11 +44,11 @@ public class Article {
 		this.id = id;
 	}
 
-	public String getDatePublication() {
+	public LocalDate getDatePublication() {
 		return datePublication;
 	}
 
-	public void setDatePublication(String datePublication) {
+	public void setDatePublication(LocalDate datePublication) {
 		this.datePublication = datePublication;
 	}
 

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,19 +8,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Disliker {
+public class Liker {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
 	@ManyToOne
-    @JoinColumn(name = "user_id") 
+    @JoinColumn(name = "user_id")
     private Utilisateur user;
 
     @ManyToOne
-    @JoinColumn(name = "article_id")
+    @JoinColumn(name = "article_id") 
     private Article article;
+    
+    private Boolean isLiked;
 
 	public Integer getId() {
 		return id;
@@ -44,6 +46,14 @@ public class Disliker {
 
 	public void setUser(Utilisateur utilisateur) {
 		this.user = utilisateur;
+	}
+
+	public Boolean getLike() {
+		return isLiked;
+	}
+
+	public void setLike(Boolean like) {
+		this.isLiked = like;
 	}
 	
 }
