@@ -8,6 +8,8 @@ import com.example.demo.entity.Utilisateur;
 @Repository
 public interface UtilisateurRepository extends CrudRepository<Utilisateur, Integer>{
 	
-	public void deleteById(Integer id);
+	void deleteById(Integer id);
+	
+	Utilisateur findByNom(String nom); 
 	 
 }
