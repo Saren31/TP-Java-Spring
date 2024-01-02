@@ -12,4 +12,6 @@ public interface LikerRepository extends CrudRepository<Liker, Integer>{
 
 	Iterable<Liker> findAllByUserId(Integer id);
 
+	Iterable<Liker> findAllByArticleId(Integer id);
+
 }

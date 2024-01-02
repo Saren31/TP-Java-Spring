@@ -61,22 +61,30 @@ public class LikeController {
 		return likeRepository.findAll();
 	}
 	 
-	 @GetMapping(path="/user/{id}")
-	 public @ResponseBody Iterable<Liker> getLikesByUserId(@PathVariable Integer id) {
-		 if (!utilisateurRepository.existsById(id)) {
-			 return null;
-		 }
-		 return likeRepository.findAllByUserId(id);
-	    }
+	@GetMapping(path="/user/{id}")
+	public @ResponseBody Iterable<Liker> getLikesByUserId(@PathVariable Integer id) {
+		if (!utilisateurRepository.existsById(id)) {
+			return null;
+		}
+		return likeRepository.findAllByUserId(id);
+	}
+	
+	@GetMapping(path="/article/{id}")
+	public @ResponseBody Iterable<Liker> getLikesByArticleId(@PathVariable Integer id) {
+		if (!articleRepository.existsById(id)) {
+			return null;
+		}
+		return likeRepository.findAllByArticleId(id);
+	}
 	 
-	 @DeleteMapping
-	 public @ResponseBody String deleteLike(@RequestParam Integer auteurId,
-	        @RequestParam Integer articleId) {
-		 Liker l = likeRepository.findByUserIdAndArticleId(auteurId, articleId);
-		 if (l != null) {
-			 likeRepository.delete(l);
-			 return "Like supprimé";
-		 }
-		 return "Like n'existe pas";
-	 }
+	@DeleteMapping
+	public @ResponseBody String deleteLike(@RequestParam Integer auteurId,
+			@RequestParam Integer articleId) {
+		Liker l = likeRepository.findByUserIdAndArticleId(auteurId, articleId);
+		if (l != null) {
+			likeRepository.delete(l);
+			return "Like supprimé";
+		}
+		return "Like n'existe pas";
+	}
 }
