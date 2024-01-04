@@ -1,4 +1,4 @@
-package authentification;
+package com.example.demo.authentification;
 
 import java.io.IOException;
 
@@ -32,9 +32,12 @@ public class OncePerRequestFilterTP extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
+		try {
 		final String requestTokenHeader = request.getHeader("Authorization");
 		String jwtToken = null;
 		String nom = null;
+		
+		System.out.println(requestTokenHeader);
 		
 		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
 			jwtToken = requestTokenHeader.substring(7);
@@ -54,14 +57,18 @@ public class OncePerRequestFilterTP extends OncePerRequestFilter {
 			usernamePasswordAuthenticationToken
 				.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 			SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-			
-			filterChain.doFilter(request, response);
-		
+					
 		
 		}
 		else {
 			authenticationEntryPoint.commence(request, response, null);
 		}
+		}catch (Exception e) {
+			logger.error("Problème JWT: " + e);
+        }
+
+		
+		filterChain.doFilter(request, response);
 		
 	}
 

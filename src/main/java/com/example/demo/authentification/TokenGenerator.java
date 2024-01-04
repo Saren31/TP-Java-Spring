@@ -1,4 +1,4 @@
-package authentification;
+package com.example.demo.authentification;
 
 import java.util.Date;
 
@@ -22,15 +22,21 @@ public class TokenGenerator {
     public String generateJwtToken(Authentication authentication) {
 
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
+        
+        System.out.println("HHHHHHHHHHHHHHHAHHAHHAH");
 
         Date tokenCreationDate = new Date();
         Date tokenExpirationDate = new Date(tokenCreationDate.getTime() + jwtExpirationMs);
 
-        return Jwts.builder()
+        String key = Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(tokenCreationDate)
                 .setExpiration(tokenExpirationDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
+        
+        System.out.println(key);
+        
+        return key;
     }
 }

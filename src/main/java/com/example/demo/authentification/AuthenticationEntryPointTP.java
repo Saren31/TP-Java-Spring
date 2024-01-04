@@ -1,4 +1,4 @@
-package authentification;
+package com.example.demo.authentification;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
