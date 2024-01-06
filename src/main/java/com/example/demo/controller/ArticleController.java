@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,7 @@ public class ArticleController {
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
 	
+	@PreAuthorize("hasAuthority('ROLE_PUBLISHER')")
 	@PostMapping
 	public @ResponseBody String addArticle (@RequestParam String contenu, 
 			@RequestParam(required = false) LocalDate date,
@@ -46,17 +49,19 @@ public class ArticleController {
 	    articleRepository.save(n);
 	    return "Sauvegardé";
 	  }
-	 
+	
 	@GetMapping
 	public @ResponseBody Iterable<Article> getArticles() {
 		return articleRepository.findAll();
 	}
 	 
+	@PreAuthorize("hasAnyAuthority('ROLE_MODERATOR', 'ROLE_PUBLISHER')")
 	@GetMapping(path="/{id}")
 	public @ResponseBody Article getArticleById(@PathVariable Integer id) {
 		return articleRepository.findById(id).orElse(null);
 	}
 	 
+	@PreAuthorize("hasAuthority('ROLE_PUBLISHER')")
 	@PutMapping(path="/{id}")
 	 public @ResponseBody Article changeArticle(@PathVariable Integer id, 
 			 @RequestParam(required = false) String contenu, 
@@ -80,10 +85,12 @@ public class ArticleController {
 		 return a;
 	 }
 	 
-	 @DeleteMapping(path="/{id}")
-	 public @ResponseBody String deleteArticle(@PathVariable Integer id) {
-		 articleRepository.deleteById(id);
-		 return "Supprimé";
-	 }
+	
+	@PreAuthorize("hasAnyAuthority('ROLE_MODERATOR', 'ROLE_PUBLISHER')")
+	@DeleteMapping(path="/{id}")
+	public @ResponseBody String deleteArticle(@PathVariable Integer id) {
+		articleRepository.deleteById(id);
+		return "Supprimé";
+	}
 	
 }
