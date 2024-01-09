@@ -38,6 +38,10 @@ public class LikeController {
 			@RequestParam Boolean like) {
 		 Article article = articleRepository.findById(articleId).orElseThrow();
 		 Utilisateur auteur = utilisateurRepository.findById(auteurId).orElseThrow();
+		 
+		 if (article.getUser().getNom() == auteur.getNom()) {
+			 return "Vous ne pouvez pas liker ou disliker votre propre article";
+		 }
 	  
 		 Liker l = likeRepository.findByUserIdAndArticleId(auteurId, articleId);
 	     if (l != null && l.getLike() == like) {

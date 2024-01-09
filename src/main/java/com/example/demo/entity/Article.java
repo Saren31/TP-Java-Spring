@@ -75,6 +75,4 @@ public class Article {
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
-
-	
 }
