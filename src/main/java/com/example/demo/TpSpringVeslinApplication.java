@@ -10,10 +10,4 @@ public class TpSpringVeslinApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TpSpringVeslinApplication.class, args);
 	}
-	
-	@GetMapping("/bonjour")
-	public String index() {
-		return "Bonjour le monde !";
-	}
-
 }
