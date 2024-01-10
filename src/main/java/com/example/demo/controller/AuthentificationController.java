@@ -31,15 +31,11 @@ public class AuthentificationController {
 	@PostMapping("/login")
 	public ResponseEntity<?> createAuthenticationToken(
 			@RequestBody JwtDTO authenticationRequest) throws Exception {
-		System.out.println("HIIIIIIIIIIIIIIIIIIIIII");
-		System.out.println(authenticationRequest.getPassword());
 		Authentication authentification = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
 				authenticationRequest.getPassword()));
-		System.out.println("HPOOOOOOOOOOOOOOOOOOOOO");
 		@SuppressWarnings("unused")
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		final String token = tokenGenerator.generateJwtToken(authentification);
-		System.out.println("tic" + token);
 		return ResponseEntity.ok(token);
 	}
 	

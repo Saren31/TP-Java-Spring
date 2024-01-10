@@ -23,8 +23,6 @@ public class TokenGenerator {
 
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
         
-        System.out.println("HHHHHHHHHHHHHHHAHHAHHAH");
-
         Date tokenCreationDate = new Date();
         Date tokenExpirationDate = new Date(tokenCreationDate.getTime() + jwtExpirationMs);
 
@@ -34,9 +32,7 @@ public class TokenGenerator {
                 .setExpiration(tokenExpirationDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
-        
-        System.out.println(key);
-        
+                
         return key;
     }
 }

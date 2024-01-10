@@ -6,8 +6,6 @@ public class JwtDTO {
     private final String password;
 	
     public JwtDTO(String username, String password) {
-    	System.out.println("jwt_username:" + username);
-    	System.out.println("jwt_password:" + password);
     	this.username = username;
     	this.password = password;
     }

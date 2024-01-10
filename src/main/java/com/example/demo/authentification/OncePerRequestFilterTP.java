@@ -35,9 +35,7 @@ public class OncePerRequestFilterTP extends OncePerRequestFilter {
 		final String requestTokenHeader = request.getHeader("Authorization");
 		String jwtToken = null;
 		String nom = null;
-		
-		System.out.println(requestTokenHeader);
-		
+				
 		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
 			jwtToken = requestTokenHeader.substring(7);
 		}

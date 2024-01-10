@@ -46,7 +46,6 @@ public class UtilisateurController {
 	@GetMapping
 	public @ResponseBody Iterable<Utilisateur> getUsers() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth.getName());
 		return utilisateurRepository.findAll();
 	}
 	 

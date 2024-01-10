@@ -104,7 +104,6 @@ public class ArticleController {
 	@GetMapping(path="/own")
 	public @ResponseBody List<ArticlePublisher> getOwnArticles() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth.getName());
 		List<ArticleDTO> articles = articleRepository.findByUserNom(auth.getName());
 		List<ArticlePublisher> resultats = new ArrayList<ArticlePublisher>();
 		for (ArticleDTO a : articles) {
@@ -172,7 +171,6 @@ public class ArticleController {
 	public @ResponseBody String deleteArticle(@PathVariable String nom) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Article a = articleRepository.findByTitre(nom);
-		System.out.println(a.getUser());
 		if (a == null || (utilisateurRepository.findByNom(auth.getName()).getRole().equals(Role.PUBLISHER.toString()) && 
 				!auth.getName().equals(a.getUser().getNom()))) {
 			return null;
