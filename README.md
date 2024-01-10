@@ -3,6 +3,8 @@
 Lucas Veslin 
 Groupe B
 
+J'ai fait des tags comme demandé mais il est préférable de regarder la version finale du projet car j'ai amélioré le TP2 à la fin du TP3 par exemple
+
 ---
 ## Commandes sur Postman
 ### Utilisateur
