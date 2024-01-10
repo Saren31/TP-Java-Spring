@@ -36,6 +36,9 @@ http://localhost:8080/article?contenu=J'adore le Java...&titre=Java Spring&nomAu
 Pour obtenir tous les articles : 
 http://localhost:8080/article
 
+Pour obtenir ses propres articles : 
+http://localhost:8080/article/own
+
 Pour obtenir un article à partir de son nom : 
 http://localhost:8080/article/Java Spring
 
@@ -47,13 +50,13 @@ http://localhost:8080/article/Spring
 
 ### Liker
 Ajouter un like à un article pour un utilisateur : 
-http://localhost:8080/like?auteurId=21&articleId=18&like=true
+http://localhost:8080/like?nomAuteur=Fernandez&titreArticle=Java&like=false
 
-Supprimer un like d'un utilsiateur sur un article :
-http://localhost:8080/like?auteurId=21&articleId=18
+Supprimer un like d'un utilisateur sur un article :
+http://localhost:8080/like?nomAuteur=Fernandez&titreArticle=Java
 
 Pour obtenir tous les likes : 
 http://localhost:8080/like
 
-Pour obtenir tous les likes d'un utilsiateur:
+Pour obtenir tous les likes d'un utilisateur:
 http://localhost:8080/like/user/21
