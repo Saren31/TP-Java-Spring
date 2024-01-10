@@ -17,6 +17,7 @@ Sachant que il faut mettre dans le body {
     "username": "Lucas",
     "password": "iutinfo"
 } par exemple
+
 Cela va renvoyer un JWT Token à mettre dans authorisation Bearer Token de Postman.
 
 Pour obtenir tous les utilisateurs : 
