@@ -36,6 +36,7 @@ public class AuthentificationController {
 		Authentication authentification = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
 				authenticationRequest.getPassword()));
 		System.out.println("HPOOOOOOOOOOOOOOOOOOOOO");
+		@SuppressWarnings("unused")
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		final String token = tokenGenerator.generateJwtToken(authentification);
 		System.out.println("tic" + token);

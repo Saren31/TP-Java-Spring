@@ -3,35 +3,46 @@
 Lucas Veslin 
 Groupe B
 
--- Je vais le terminer durant les vacances
-
 ---
 ## Commandes sur Postman
 ### Utilisateur
-Pour ajouter un utilisateur :
-http://localhost:8080/user?nom=Leblanc&password=TheWhite&role=moderator
+
+Pour ajouter un utilisateur (on peut les ajouter sans se connecter pour pouvoir facilement tester l'application mais théoriquement j'aurais dû mettre une sécurité):
+http://localhost:8080/user?nom=Gaetan Pique&password=spring&role=publisher
+http://localhost:8080/user?nom=Lucas&password=iutinfo&role=moderator
+
+Pour se connecter à l'application :
+http://localhost:8080/auth/login 
+Sachant que il faut mettre dans le body {
+    "username": "Lucas",
+    "password": "iutinfo"
+} par exemple
+Cela va renvoyer un JWT Token à mettre dans authorisation Bearer Token de Postman.
 
 Pour obtenir tous les utilisateurs : 
 http://localhost:8080/user
 
 Pour obtenir un utilisateur à partir de son id :
-http://localhost:8080/user/21
+http://localhost:8080/user/2
 
 ### Article
+
+Les résultats vont changer en fonction de l'utilisateur connecté
+
 Pour ajouter un article : 
-http://localhost:8080/article?contenu=contenu&date=29/12/2012&auteurId=1
+http://localhost:8080/article?contenu=J'adore le Java...&titre=Java Spring&nomAuteur=Gaetan Pique
 
 Pour obtenir tous les articles : 
 http://localhost:8080/article
 
-Pour obtenir un article à partir de son id : 
-http://localhost:8080/article/20
+Pour obtenir un article à partir de son nom : 
+http://localhost:8080/article/Java Spring
 
-Pour modifier un article (à améliorer) : 
-http://localhost:8080/article/20?contenu=hi&date=12/12/2012&auteurId=1&titre=test
+Pour modifier un article : 
+http://localhost:8080/article/Java Spring?titre=Spring&contenu=C'est long
 
-Pour supprimer un article à partir de son id : 
-http://localhost:8080/article/20
+Pour supprimer un article à partir de son nom : 
+http://localhost:8080/article/Spring
 
 ### Liker
 Ajouter un like à un article pour un utilisateur : 

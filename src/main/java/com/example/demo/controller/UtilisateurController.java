@@ -26,12 +26,14 @@ public class UtilisateurController {
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
 	
-	@PreAuthorize("hasAuthority('ROLE_MODERATOR')")
 	@PostMapping
 	public @ResponseBody String addUser (@RequestParam String nom,
 			@RequestParam String password, @RequestParam Role role) {
 
 	    Utilisateur n = new Utilisateur();
+	    if (utilisateurRepository.findByNom(nom) != null) {
+	    	return "Votre nom est déjà dans la base de données";
+	    }
 	    n.setNom(nom);
 	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	    n.setPassword(encoder.encode(password));
@@ -65,7 +67,8 @@ public class UtilisateurController {
 			n.setNom(nom);
 		}
 		if (password != null) {
-			n.setPassword(password);
+			 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			 n.setPassword(encoder.encode(password));
 		}
 		if (role != null) {
 			n.setRole(role);

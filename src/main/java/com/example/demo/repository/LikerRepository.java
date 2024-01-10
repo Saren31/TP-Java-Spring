@@ -13,23 +13,23 @@ import com.example.demo.entity.Utilisateur;
 @Repository
 public interface LikerRepository extends CrudRepository<Liker, Integer>{
 
-	Liker findByUserIdAndArticleId(Integer auteurId, Integer articleId);
+	Liker findByUserNomAndArticleTitre(String userNom, String articleTitre);
 
 	Iterable<Liker> findAllByUserId(Integer id);
 
 	Iterable<Liker> findAllByArticleId(Integer id);
 	
-	@Query("SELECT COUNT(l) FROM Liker l WHERE l.article.titre = :articleTitre AND l.user.nom = :auteurNom AND l.isLiked = true")
-    Integer countLikesByArticleAndAuteur(@Param("articleTitre") String articleTitre, @Param("auteurNom") String auteurNom);
+	@Query("SELECT COUNT(l) FROM Liker l WHERE l.article.titre = :articleTitre AND l.isLiked = true")
+    Integer countLikesByArticleAndAuteur(@Param("articleTitre") String articleTitre);
 	
-	@Query("SELECT COUNT(l) FROM Liker l WHERE l.article.titre = :articleTitre AND l.user.nom = :auteurNom AND l.isLiked = false")
-    Integer countDislikesByArticleAndAuteur(@Param("articleTitre") String articleTitre, @Param("auteurNom") String auteurNom);
+	@Query("SELECT COUNT(l) FROM Liker l WHERE l.article.titre = :articleTitre AND l.isLiked = false")
+    Integer countDislikesByArticleAndAuteur(@Param("articleTitre") String articleTitre);
 
-	@Query("SELECT l.user FROM Liker l WHERE l.article.titre = :articleTitre AND l.article.user.nom = :auteurNom AND l.isLiked = true")
-	List<Utilisateur> findUsersWhoLikedArticle(@Param("articleTitre") String articleTitre, @Param("auteurNom") String auteurNom);
+	@Query("SELECT l.user FROM Liker l WHERE l.article.titre = :articleTitre AND l.isLiked = true")
+	List<Utilisateur> findUsersWhoLikedArticle(@Param("articleTitre") String articleTitre);
 
-	@Query("SELECT l.user FROM Liker l WHERE l.article.titre = :articleTitre AND l.article.user.nom = :auteurNom AND l.isLiked = false")
-	List<Utilisateur> findUsersWhoDislikedArticle(@Param("articleTitre") String articleTitre, @Param("auteurNom") String auteurNom);
+	@Query("SELECT l.user FROM Liker l WHERE l.article.titre = :articleTitre AND l.isLiked = false")
+	List<Utilisateur> findUsersWhoDislikedArticle(@Param("articleTitre") String articleTitre);
 
 
 }

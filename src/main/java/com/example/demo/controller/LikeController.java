@@ -33,17 +33,21 @@ public class LikeController {
 	
 	@PreAuthorize("hasAnyAuthority('ROLE_PUBLISHER')")
 	@PostMapping
-	public @ResponseBody String addLike (@RequestParam Integer auteurId, 
-			@RequestParam Integer articleId,
+	public @ResponseBody String addLike (@RequestParam String nomAuteur, 
+			@RequestParam String titreArticle,
 			@RequestParam Boolean like) {
-		 Article article = articleRepository.findById(articleId).orElseThrow();
-		 Utilisateur auteur = utilisateurRepository.findById(auteurId).orElseThrow();
+		 Article article = articleRepository.findByTitre(titreArticle);
+		 Utilisateur auteur = utilisateurRepository.findByNom(nomAuteur);
 		 
-		 if (article.getUser().getNom() == auteur.getNom()) {
+		 if (article == null && auteur == null) {
+			 return null;
+		 }
+		 
+		 if (article.getUser().getNom().equals(auteur.getNom())) {
 			 return "Vous ne pouvez pas liker ou disliker votre propre article";
 		 }
 	  
-		 Liker l = likeRepository.findByUserIdAndArticleId(auteurId, articleId);
+		 Liker l = likeRepository.findByUserNomAndArticleTitre(nomAuteur, titreArticle);
 	     if (l != null && l.getLike() == like) {
 	    	 if (like == true)
 	    		 return auteur.getNom() + " a déjà liké l'article";
@@ -84,9 +88,9 @@ public class LikeController {
 	}
 	 
 	@DeleteMapping
-	public @ResponseBody String deleteLike(@RequestParam Integer auteurId,
-			@RequestParam Integer articleId) {
-		Liker l = likeRepository.findByUserIdAndArticleId(auteurId, articleId);
+	public @ResponseBody String deleteLike(@RequestParam String nomAuteur,
+			@RequestParam String titreArticle) {
+		Liker l = likeRepository.findByUserNomAndArticleTitre(nomAuteur, titreArticle);
 		if (l != null) {
 			likeRepository.delete(l);
 			return "Like supprimé";

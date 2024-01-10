@@ -1,10 +1,5 @@
 package com.example.demo.authentification;
 
-import java.util.List;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 public class JwtDTO {
 
     private final String username;

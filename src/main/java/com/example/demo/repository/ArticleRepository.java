@@ -16,7 +16,9 @@ public interface ArticleRepository extends CrudRepository<Article, Integer>{
 	
 	void deleteById(Integer id);
 	
-	@Query("SELECT NEW com.example.demo.entity.ArticleDTO(a.titre, a.datePublication, a.user.nom, a.contenu) FROM Article a")
+	Article findByTitre(String nom);
+	
+	@Query("SELECT NEW com.example.demo.entity.ArticleDTO(a.titre, a.datePublication, a.user.nom, a.contenu) FROM Article a where a.user.nom = :nomUtilisateur")
 	List<ArticleDTO> findByUserNom(String nomUtilisateur);
 	
 	@Query("SELECT NEW com.example.demo.entity.ArticleDTO(a.titre, a.datePublication, a.user.nom, a.contenu) FROM Article a")
